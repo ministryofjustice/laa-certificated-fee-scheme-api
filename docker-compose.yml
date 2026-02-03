@@ -3,4 +3,33 @@ services:
     build:
       context: .
     ports:
-      - "8080:8080"
+      - "8086:8086"
+      - "8186:8186"
+    environment:
+        - DB_SERVER=postgres
+        - DB_NAME=cert_fee_scheme_test_db
+        - DB_USER= # enter chosen DB user here
+        - DB_PASSWORD= # enter chosen DB user here
+        - DATA_CLAIMS_EVENT_SERVICE_TOKEN= # enter chosen API token here
+        - SENTRY_DSN=
+    depends_on:
+      postgres:
+        condition: service_started
+
+  # Local Postgres database service
+  postgres:
+    container_name: cert-fee-scheme-db
+    image: postgres:17
+    hostname: localhost
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: # enter chosen DB user here
+      POSTGRES_PASSWORD: # enter chosen DB password here
+      POSTGRES_DB: cert-fee_scheme_test_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

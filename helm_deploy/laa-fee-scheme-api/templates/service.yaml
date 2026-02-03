@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Chart.Name }}-service"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "laa-certificated-fee-scheme-api.labels" . | nindent 4 }}
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+    - name: actuator
+      port: {{ .Values.actuator.port }}
+      targetPort: actuator
+      protocol: TCP
+  selector:
+    {{- include "laa-certificated-fee-scheme-api.selectorLabels" . | nindent 4 }}
