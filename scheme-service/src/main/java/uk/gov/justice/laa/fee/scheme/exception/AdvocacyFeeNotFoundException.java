@@ -5,6 +5,15 @@ package uk.gov.justice.laa.fee.scheme.exception;
  */
 public class AdvocacyFeeNotFoundException extends RuntimeException {
 
+  /**
+   * Constructs a new AdvocacyFeeNotFoundException with a message containing the lookup parameters.
+   *
+   * @param schemeCode Scheme code should never be null for fee lookups
+   * @param proceedingTypeCode Proceeding type code should be null for pre-AGFS v2 fee lookups
+   * @param judgeLevelCode Judge level code should be null for pre-AGFS v2 fee lookups
+   * @param hearingTypeCode Hearing type code should be null for pre-AGFS v2 fee lookups
+   * @param hearingBandCode Should be null for pre-AGFS v2 fee lookups
+   */
   public AdvocacyFeeNotFoundException(
       String schemeCode,
       String proceedingTypeCode,

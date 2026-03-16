@@ -11,6 +11,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The entity class for fas category.
+ */
 @Getter
 @Setter
 @Entity

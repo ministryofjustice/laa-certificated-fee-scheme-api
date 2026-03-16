@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The entity class for cert fee scheme.
+ */
 @Getter
 @Setter
 @Entity

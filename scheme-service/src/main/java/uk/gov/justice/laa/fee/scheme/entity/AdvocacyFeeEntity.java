@@ -14,6 +14,10 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The entity class for Advocacy fees.
+ */
+
 @Getter
 @Setter
 @Entity
