@@ -32,7 +32,7 @@ public class AdvocacyFeeMapper {
       String hearingBandCode) {
 
     AdvocacyFeeResponse response = new AdvocacyFeeResponse();
-    response.setAmount(entity.getAmount());
+    response.setAmount(entity.getAmount().doubleValue());
     response.setSchemeCode(schemeCode);
     response.setProceedingTypeCode(proceedingTypeCode);
     response.setJudgeLevelCode(judgeLevelCode);
