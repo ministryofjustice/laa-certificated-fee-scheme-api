@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import uk.gov.justice.laa.fee.scheme.entity.AdvocacyFeeEntity;
 import uk.gov.justice.laa.fee.scheme.exception.AdvocacyFeeNotFoundException;
 import uk.gov.justice.laa.fee.scheme.mapper.AdvocacyFeeMapper;
+import uk.gov.justice.laa.fee.scheme.model.AdvocacyFeeRequest;
 import uk.gov.justice.laa.fee.scheme.model.AdvocacyFeeResponse;
 import uk.gov.justice.laa.fee.scheme.repository.AdvocacyFeeRepository;
 
@@ -22,32 +23,30 @@ public class AdvocacyFeeService {
   /**
    * Retrieves the advocacy fee amount for the given lookup parameters.
    *
-   * @param schemeCode         the fee scheme code (e.g. FAS1)
-   * @param proceedingTypeCode the proceeding type code (e.g. TRIAL)
-   * @param judgeLevelCode     the judge level code, may be null (e.g. CJ)
-   * @param hearingTypeCode    the hearing type code, may be null (e.g. CC)
-   * @param hearingBandCode    the hearing band code, may be null (e.g. BAND_1)
+   * @param request the advocacy fee lookup request containing schemeCode, proceedingTypeCode
+   *                and optional judgeLevelCode, hearingTypeCode, hearingBandCode
    * @return {@link AdvocacyFeeResponse} containing the matched fee amount and echo of lookup params
    * @throws AdvocacyFeeNotFoundException if no matching record is found
    */
-  public AdvocacyFeeResponse getAdvocacyFee(
-      String schemeCode,
-      String proceedingTypeCode,
-      String judgeLevelCode,
-      String hearingTypeCode,
-      String hearingBandCode) {
+  public AdvocacyFeeResponse getAdvocacyFee(AdvocacyFeeRequest request) {
 
     log.info("Looking up advocacy fee: schemeCode={}, proceedingTypeCode={}, judgeLevelCode={}, hearingTypeCode={}, hearingBandCode={}",
-        schemeCode, proceedingTypeCode, judgeLevelCode, hearingTypeCode, hearingBandCode);
+        request.getSchemeCode(), request.getProceedingTypeCode(), request.getJudgeLevelCode(),
+        request.getHearingTypeCode(), request.getHearingBandCode());
 
     AdvocacyFeeEntity entity = advocacyFeeRepository
-        .findByLookupParams(schemeCode, proceedingTypeCode, judgeLevelCode, hearingTypeCode, hearingBandCode)
+        .findByLookupParams(
+            request.getSchemeCode(),
+            request.getProceedingTypeCode(),
+            request.getJudgeLevelCode(),
+            request.getHearingTypeCode(),
+            request.getHearingBandCode())
         .orElseThrow(() -> new AdvocacyFeeNotFoundException(
-            schemeCode, proceedingTypeCode, judgeLevelCode, hearingTypeCode, hearingBandCode));
+            request.getSchemeCode(), request.getProceedingTypeCode(), request.getJudgeLevelCode(),
+            request.getHearingTypeCode(), request.getHearingBandCode()));
 
     log.info("Found advocacy fee: id={}, amount={}", entity.getId(), entity.getAmount());
 
-    return AdvocacyFeeMapper.toResponse(entity, schemeCode, proceedingTypeCode, judgeLevelCode, hearingTypeCode, hearingBandCode);
+    return AdvocacyFeeMapper.toResponse(entity, request);
   }
 }
-

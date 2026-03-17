@@ -1,44 +1,34 @@
 package uk.gov.justice.laa.fee.scheme.mapper;
 
 import uk.gov.justice.laa.fee.scheme.entity.AdvocacyFeeEntity;
+import uk.gov.justice.laa.fee.scheme.model.AdvocacyFeeRequest;
 import uk.gov.justice.laa.fee.scheme.model.AdvocacyFeeResponse;
 
 /**
  * Mapper to convert AdvocacyFeeEntity to AdvocacyFeeResponse.
  */
-public final class AdvocacyFeeMapper {
+public class AdvocacyFeeMapper {
 
   private AdvocacyFeeMapper() {
     // utility class
   }
 
   /**
-   * Maps an {@link AdvocacyFeeEntity} and the lookup parameters to an {@link AdvocacyFeeResponse}.
+   * Maps an {@link AdvocacyFeeEntity} and the original {@link AdvocacyFeeRequest}
+   * to an {@link AdvocacyFeeResponse}.
    *
-   * @param entity             the resolved advocacy fee entity
-   * @param schemeCode         the scheme code used in the lookup
-   * @param proceedingTypeCode the proceeding type code used in the lookup
-   * @param judgeLevelCode     the judge level code used in the lookup (may be null)
-   * @param hearingTypeCode    the hearing type code used in the lookup (may be null)
-   * @param hearingBandCode    the hearing band code used in the lookup (may be null)
+   * @param entity  the resolved advocacy fee entity
+   * @param request the original lookup request
    * @return the populated response
    */
-  public static AdvocacyFeeResponse toResponse(
-      AdvocacyFeeEntity entity,
-      String schemeCode,
-      String proceedingTypeCode,
-      String judgeLevelCode,
-      String hearingTypeCode,
-      String hearingBandCode) {
-
+  public static AdvocacyFeeResponse toResponse(AdvocacyFeeEntity entity, AdvocacyFeeRequest request) {
     AdvocacyFeeResponse response = new AdvocacyFeeResponse();
     response.setAmount(entity.getAmount().doubleValue());
-    response.setSchemeCode(schemeCode);
-    response.setProceedingTypeCode(proceedingTypeCode);
-    response.setJudgeLevelCode(judgeLevelCode);
-    response.setHearingTypeCode(hearingTypeCode);
-    response.setHearingBandCode(hearingBandCode);
+    response.setSchemeCode(request.getSchemeCode());
+    response.setProceedingTypeCode(request.getProceedingTypeCode());
+    response.setJudgeLevelCode(request.getJudgeLevelCode());
+    response.setHearingTypeCode(request.getHearingTypeCode());
+    response.setHearingBandCode(request.getHearingBandCode());
     return response;
   }
 }
-

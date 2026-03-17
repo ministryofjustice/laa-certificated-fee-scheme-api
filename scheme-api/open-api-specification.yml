@@ -39,42 +39,17 @@ paths:
           description: 'Internal server error'
 
   /api/v1/advocacy-fee:
-    get:
+    post:
       tags:
         - advocacyFee
       summary: Get advocacy fee amount for given parameters
       operationId: getAdvocacyFee
-      parameters:
-        - name: schemeCode
-          in: query
-          required: true
-          description: Scheme code to identify the fee scheme (e.g. FAS1)
-          schema:
-            type: string
-        - name: proceedingTypeCode
-          in: query
-          required: true
-          description: Proceeding type code (e.g. TRIAL, GUILTY_PLEA, CRACKED_TRIAL)
-          schema:
-            type: string
-        - name: judgeLevelCode
-          in: query
-          required: false
-          description: Judge level code (e.g. CJ, HCJ, REC, DJ)
-          schema:
-            type: string
-        - name: hearingTypeCode
-          in: query
-          required: false
-          description: Hearing type code (e.g. CC, MC, APP)
-          schema:
-            type: string
-        - name: hearingBandCode
-          in: query
-          required: false
-          description: Hearing band code (e.g. BAND_1, BAND_2, BAND_3)
-          schema:
-            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdvocacyFeeRequest"
       responses:
         '200':
           description: Success
@@ -129,6 +104,28 @@ paths:
 
 components:
   schemas:
+    AdvocacyFeeRequest:
+      type: object
+      required:
+        - schemeCode
+        - proceedingTypeCode
+      properties:
+        schemeCode:
+          type: string
+          description: "Scheme code to identify the fee scheme (e.g. FAS_2020)"
+        proceedingTypeCode:
+          type: string
+          description: "Proceeding type code (e.g. CARE_SUPERVISION, OTHER_PUBLIC_LAW)"
+        judgeLevelCode:
+          type: string
+          description: "Judge level code (e.g. JUSTICES, DISTRICT, CIRCUIT, COSTS, HIGH_COURT)"
+        hearingTypeCode:
+          type: string
+          description: "Hearing type code (e.g. INTERIM_HEARING, FINAL_HEARING, ADVOCATES_MEETING, CONFERENCE_OPINION, APPEAL_REVIEW)"
+        hearingBandCode:
+          type: string
+          description: "Hearing band code (e.g. UNIT_1, UNIT_2, UNIT_2_PLUS)"
+
     AdvocacyFeeResponse:
       type: object
       required:
