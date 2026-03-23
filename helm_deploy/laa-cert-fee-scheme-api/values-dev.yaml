@@ -7,9 +7,9 @@ replicaCount: 1
 ingress:
   enabled: true
   hosts:
-    - laa-certificated-fee-scheme-api-dev.apps.live.cloud-platform.service.justice.gov.uk
+    - laa-cert-fee-scheme-api-dev.apps.live.cloud-platform.service.justice.gov.uk
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: "laa-certificated-fee-scheme-api-ingress-laa-certificated-fee-scheme-api-dev-green"
+    external-dns.alpha.kubernetes.io/set-identifier: "laa-cert-fee-scheme-api-ingress-laa-cert-fee-scheme-api-dev-green"
 
 resources:
   limits:
@@ -37,6 +37,6 @@ application:
     level: DEBUG
 
 prometheus:
-  dashboardUrl: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-certificated-fee-scheme-api-dev-dashboard
-  severity: laa-certificated-fee-scheme-api-dev
+  dashboardUrl: https://grafana.live.cloud-platform.service.justice.gov.uk/d/laa-cert-fee-scheme-api-dev-dashboard
+  severity: laa-cert-fee-scheme-api-dev
   zeroPodsInterval: 15m
