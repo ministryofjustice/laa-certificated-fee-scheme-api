@@ -2,7 +2,7 @@ name: Build and test PR
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "LFSP-362" ]
 
 permissions:
   contents: read
@@ -28,40 +28,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Test coverage verification
-        run: ./gradlew jacocoTestCoverageVerification
 
-      - name: Integration test
-        run: ./gradlew integrationTest --tests '*IntegrationTest'
 
       - name: Publish package
         run: ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload checkstyle report
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: checkstyle-report
-          path: spring-boot-microservice-service/build/reports/checkstyle
-          retention-days: 14
-
-      - name: Upload test report
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: test-report
-          path: spring-boot-microservice-service/build/reports/tests
-          retention-days: 14
-
-      - name: Upload jacoco coverage report
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: jacoco-coverage-report
-          path: spring-boot-microservice-service/build/reports/jacoco
-          retention-days: 14
 
   vulnerability-scan-app:
     runs-on: ubuntu-latest

@@ -7,7 +7,7 @@ import uk.gov.justice.laa.fee.scheme.model.AdvocacyFeeResponse;
 /**
  * Mapper to convert AdvocacyFeeEntity to AdvocacyFeeResponse.
  */
-public class AdvocacyFeeMapper {
+public final class AdvocacyFeeMapper {
 
   private AdvocacyFeeMapper() {
     // utility class
