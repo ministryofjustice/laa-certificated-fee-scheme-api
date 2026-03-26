@@ -22,7 +22,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Build API JAR
         run: ./gradlew clean build
@@ -103,7 +103,7 @@ jobs:
           fi
 
       - name: Upload ZAP Json Report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ${{ github.event_name == 'pull_request' && format('zap-pr-{0}-json-report', github.event.pull_request.number) || format('zap-{0}-json-report', github.event_name) }}
@@ -111,7 +111,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload ZAP Report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ${{ github.event_name == 'pull_request' && format('zap-pr-{0}-report', github.event.pull_request.number) || format('zap-{0}-report', github.event_name) }}
