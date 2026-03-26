@@ -26,7 +26,7 @@ env:
   - name: DATA_CLAIMS_EVENT_SERVICE_TOKEN
     valueFrom:
       secretKeyRef:
-        name: fee-scheme-api-secrets
+        name: cert-fee-scheme-api-secrets
         key: DATA_CLAIMS_EVENT_SERVICE_TOKEN
   {{- if .Values.sentry.enabled }}
   - name: SENTRY_DSN

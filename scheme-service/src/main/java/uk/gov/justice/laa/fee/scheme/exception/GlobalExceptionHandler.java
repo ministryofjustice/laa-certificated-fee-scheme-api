@@ -61,6 +61,14 @@ public class GlobalExceptionHandler {
   }
 
   /**
+   * Global exception handler for AdvocacyFeeNotFoundException exception.
+   */
+  @ExceptionHandler({AdvocacyFeeNotFoundException.class})
+  public ResponseEntity<ErrorResponse> handleAdvocacyFeeNotFound(AdvocacyFeeNotFoundException ex) {
+    return handleException(ex, HttpStatus.NOT_FOUND);
+  }
+
+  /**
    * Global exception handler for startDate not provided exception.
    */
   @ExceptionHandler({StartDateRequiredException.class})

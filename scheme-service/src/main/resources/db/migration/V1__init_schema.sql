@@ -127,3 +127,83 @@ ALTER TABLE fee
 
 ALTER TABLE vat_rates
     ADD CONSTRAINT uq_start_date_vat_rate UNIQUE (start_date, vat_rate);
+
+DROP TABLE IF EXISTS cert_fee_scheme CASCADE;
+
+DROP TABLE IF EXISTS scheme_type CASCADE;
+
+DROP TABLE IF EXISTS proceeding_type CASCADE;
+
+DROP TABLE IF EXISTS judge_level CASCADE;
+
+DROP TABLE IF EXISTS hearing_type CASCADE;
+
+DROP TABLE IF EXISTS hearing_band CASCADE;
+
+DROP TABLE IF EXISTS advocacy_fee CASCADE;
+
+CREATE TABLE IF NOT EXISTS cert_fee_scheme
+(
+    id             SERIAL PRIMARY KEY,
+    scheme_code    VARCHAR(50)  NOT NULL UNIQUE,
+    scheme_name    VARCHAR(255) NOT NULL,
+    effective_from DATE         NOT NULL,
+    effective_to   DATE
+);
+
+
+CREATE TABLE IF NOT EXISTS scheme_type
+(
+    id          SERIAL PRIMARY KEY,
+    code        VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT        NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS proceeding_type
+(
+    id             SERIAL PRIMARY KEY,
+    code           VARCHAR(50) NOT NULL UNIQUE,
+    description    TEXT        NOT NULL,
+    scheme_type_id INTEGER REFERENCES scheme_type (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS judge_level
+(
+    id          SERIAL PRIMARY KEY,
+    code        VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT        NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS hearing_type
+(
+    id          SERIAL PRIMARY KEY,
+    code        VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT        NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS hearing_band
+(
+    id              SERIAL PRIMARY KEY,
+    hearing_type_id INTEGER NOT NULL REFERENCES hearing_type (id),
+    band_code       VARCHAR(50),
+    min_minutes     INTEGER,
+    max_minutes     INTEGER,
+    description     TEXT,
+    band_order      INTEGER
+);
+
+
+CREATE TABLE IF NOT EXISTS advocacy_fee
+(
+    id                 SERIAL PRIMARY KEY,
+    scheme_id          INTEGER        NOT NULL REFERENCES cert_fee_scheme (id),
+    proceeding_type_id INTEGER        NOT NULL REFERENCES proceeding_type (id),
+    judge_level_id     INTEGER REFERENCES judge_level (id),
+    hearing_type_id    INTEGER REFERENCES hearing_type (id),
+    hearing_band_id    INTEGER REFERENCES hearing_band (id),
+    amount             NUMERIC(12, 2) NOT NULL
+);

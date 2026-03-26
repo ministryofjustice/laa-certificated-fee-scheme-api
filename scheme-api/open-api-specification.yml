@@ -38,6 +38,40 @@ paths:
         '500':
           description: 'Internal server error'
 
+  /api/v1/advocacy-fee:
+    post:
+      tags:
+        - advocacyFee
+      summary: Get advocacy fee amount for given parameters
+      operationId: getAdvocacyFee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdvocacyFeeRequest"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdvocacyFeeResponse"
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Advocacy fee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+
   /api/v1/fee-calculation:
     post:
       tags:
@@ -70,6 +104,53 @@ paths:
 
 components:
   schemas:
+    AdvocacyFeeRequest:
+      type: object
+      required:
+        - schemeCode
+        - proceedingTypeCode
+      properties:
+        schemeCode:
+          type: string
+          description: "Scheme code to identify the fee scheme (e.g. FAS_2020)"
+        proceedingTypeCode:
+          type: string
+          description: "Proceeding type code (e.g. CARE_SUPERVISION, OTHER_PUBLIC_LAW)"
+        judgeLevelCode:
+          type: string
+          description: "Judge level code (e.g. JUSTICES, DISTRICT, CIRCUIT, COSTS, HIGH_COURT)"
+        hearingTypeCode:
+          type: string
+          description: "Hearing type code (e.g. INTERIM_HEARING, FINAL_HEARING, ADVOCATES_MEETING, CONFERENCE_OPINION, APPEAL_REVIEW)"
+        hearingBandCode:
+          type: string
+          description: "Hearing band code (e.g. UNIT_1, UNIT_2, UNIT_2_PLUS)"
+
+    AdvocacyFeeResponse:
+      type: object
+      required:
+        - amount
+      properties:
+        amount:
+          type: number
+          format: double
+          description: "The advocacy fee amount."
+        schemeCode:
+          type: string
+          description: "Scheme code used for the lookup."
+        proceedingTypeCode:
+          type: string
+          description: "Proceeding type code used for the lookup."
+        judgeLevelCode:
+          type: string
+          description: "Judge level code used for the lookup."
+        hearingTypeCode:
+          type: string
+          description: "Hearing type code used for the lookup."
+        hearingBandCode:
+          type: string
+          description: "Hearing band code used for the lookup."
+
     FeeDetailsResponse:
       required:
         - categoryOfLawCode
