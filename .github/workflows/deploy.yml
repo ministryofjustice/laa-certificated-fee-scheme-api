@@ -3,7 +3,7 @@ name: Build and deploy after PR merged
 on:
   push:
     branches:
-      - LFSP-362
+      - main
   workflow_dispatch:
 
 jobs:
