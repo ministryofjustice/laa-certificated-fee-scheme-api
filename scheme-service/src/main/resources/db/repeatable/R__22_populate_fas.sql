@@ -13,12 +13,13 @@ VALUES ('JUSTICES', 'Justices’ legal adviser or lay justices'),
        ('HIGH_COURT', 'High court')
 ON CONFLICT (code) DO NOTHING;
 
-INSERT INTO hearing_type (code, description)
-VALUES ('INTERIM_HEARING', 'Interim Hearing'),
-       ('FINAL_HEARING', 'Final Hearing'),
-       ('ADVOCATES_MEETING', 'Advocates Meeting'),
-       ('CONFERENCE_OPINION', 'Conference or Opinion'),
-       ('APPEAL_REVIEW', 'Appeal or Review')
+INSERT INTO hearing_type (code, description, is_per_day)
+VALUES ('INTERIM_HEARING', 'Interim Hearing', false),
+       ('CONFERENCE', 'Conference', false),
+       ('OPINION', 'Opinion', false),
+       ('FINAL_HEARING', 'Final Hearing', true),
+       ('ADVOCATES_MEETING', 'Advocates Meeting', false),
+       ('APPEAL_REVIEW', 'Appeal or Review', false)
 ON CONFLICT (code) DO NOTHING;
 
 
@@ -39,35 +40,3 @@ SET band_order = CASE band_code
                      WHEN 'UNIT_2' THEN 2
                      WHEN 'UNIT_2_PLUS' THEN 3
     END;
-
-INSERT INTO advocacy_fee (scheme_id,
-                          proceeding_type_id,
-                          judge_level_id,
-                          hearing_type_id,
-                          hearing_band_id,
-                          amount)
-SELECT s.id,
-       p.id,
-       j.id,
-       h.id,
-       b.id,
-       v.amount
-FROM (VALUES ('CARE_SUPERVISION', 'JUSTICES', 'INTERIM_HEARING', 'UNIT_1', 86.72),
-             ('CARE_SUPERVISION', 'JUSTICES', 'INTERIM_HEARING', 'UNIT_2', 216.81),
-             ('CARE_SUPERVISION', 'DISTRICT', 'INTERIM_HEARING', 'UNIT_1', 95.40),
-             ('CARE_SUPERVISION', 'DISTRICT', 'INTERIM_HEARING', 'UNIT_2', 238.46),
-             ('CARE_SUPERVISION', 'CIRCUIT', 'INTERIM_HEARING', 'UNIT_2', 238.46),
-             ('CARE_SUPERVISION', 'HIGH_COURT', 'INTERIM_HEARING', 'UNIT_1', 114.48),
-             ('CARE_SUPERVISION', 'HIGH_COURT', 'INTERIM_HEARING', 'UNIT_2',
-              286.16)) AS v(proceeding_code, judge_code, hearing_code, band_code, amount)
-         JOIN cert_fee_scheme s
-              ON s.scheme_code = 'FAS_2020'
-         JOIN proceeding_type p
-              ON p.code = v.proceeding_code
-         JOIN judge_level j
-              ON j.code = v.judge_code
-         JOIN hearing_type h
-              ON h.code = v.hearing_code
-         JOIN hearing_band b
-              ON b.band_code = v.band_code;
--- Justices
