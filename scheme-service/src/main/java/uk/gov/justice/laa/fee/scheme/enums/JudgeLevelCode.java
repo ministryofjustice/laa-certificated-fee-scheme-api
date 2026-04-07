@@ -1,14 +1,14 @@
 package uk.gov.justice.laa.fee.scheme.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Enum for judge level codes used in advocacy fee lookup.
  * Values match the judge_level.code column populated by R__22_populate_fas.sql.
  */
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum JudgeLevelCode {
 
   JUSTICES("JUSTICES", "Justices' legal adviser or lay justices"),

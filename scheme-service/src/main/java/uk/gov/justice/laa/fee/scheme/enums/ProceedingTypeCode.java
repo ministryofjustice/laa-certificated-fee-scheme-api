@@ -1,14 +1,14 @@
 package uk.gov.justice.laa.fee.scheme.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Enum for proceeding type codes used in advocacy fee lookup.
  * Values match the proceeding_type.code column populated by R__22_populate_fas.sql.
  */
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum ProceedingTypeCode {
 
   CARE_SUPERVISION("CARE_SUPERVISION", "Care or supervision"),

@@ -15,8 +15,6 @@ dependencies {
 
 sourceSets.main.java.srcDirs += ['generated/src/main/java']
 
-checkstyleMain.exclude "*"
-
 openApiGenerate {
     generatorName = "spring"
     inputSpec = "$rootDir/scheme-api/open-api-specification.yml".toString()

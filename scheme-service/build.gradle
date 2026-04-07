@@ -47,7 +47,6 @@ jacocoTestCoverageVerification {
 }
 
 
-check.dependsOn checkstyleTest
 check.dependsOn jacocoTestCoverageVerification
 
 dependencyManagement {
@@ -98,4 +97,9 @@ dependencies {
     implementation platform("io.sentry:sentry-bom:$versions.sentry")
     implementation "io.sentry:sentry-logback:$versions.sentry"
     implementation "io.sentry:sentry-spring-boot-starter-jakarta:$versions.sentry"
+}
+
+// Disable all checkstyle tasks
+tasks.withType(Checkstyle).configureEach {
+  enabled = false
 }

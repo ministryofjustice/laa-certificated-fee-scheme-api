@@ -1,14 +1,14 @@
 package uk.gov.justice.laa.fee.scheme.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Enum for hearing type codes used in advocacy fee lookup.
  * Values match the hearing_type.code column populated by R__22_populate_fas.sql.
  */
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum HearingTypeCode {
 
   INTERIM_HEARING("INTERIM_HEARING", "Interim Hearing"),

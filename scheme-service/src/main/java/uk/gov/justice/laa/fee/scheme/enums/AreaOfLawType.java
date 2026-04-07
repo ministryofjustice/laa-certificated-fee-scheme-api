@@ -1,14 +1,14 @@
 package uk.gov.justice.laa.fee.scheme.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  *   For Area of Law look up purpose.
  */
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum AreaOfLawType {
 
   LEGAL_HELP("Legal Help"),

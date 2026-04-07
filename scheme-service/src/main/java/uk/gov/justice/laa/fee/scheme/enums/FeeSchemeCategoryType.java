@@ -1,14 +1,14 @@
 package uk.gov.justice.laa.fee.scheme.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * For Fee Scheme Category Look up purpose.
  */
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum FeeSchemeCategoryType {
 
   ADVOCACY_ASSISTANCE("Advocacy Assistance"),
