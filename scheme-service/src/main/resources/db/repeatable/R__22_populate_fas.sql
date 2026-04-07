@@ -1,3 +1,9 @@
+-- Certificate Fee Scheme
+INSERT INTO cert_fee_scheme
+(scheme_code, scheme_name, effective_from, effective_to)
+VALUES('FAS', 'Family Advocacy Scheme 2020', '2020-04-06', NULL)
+ON CONFLICT (scheme_code) DO NOTHING;
+
 -- Proceeding Types
 INSERT INTO proceeding_type (code, description)
 VALUES ('CARE_SUPERVISION', 'Care or supervision'),
