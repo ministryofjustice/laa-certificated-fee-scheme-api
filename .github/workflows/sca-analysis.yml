@@ -34,7 +34,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Build app jar with gradle
         run: ./gradlew build
@@ -43,7 +43,7 @@ jobs:
         run: docker build -t laa-cert-fee-scheme-api:latest-image .
 
       - name: Run SCA
-        uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed
+        uses: ministryofjustice/devsecops-actions/sca@8c77d3a65a46d1d4b5416eafae5b84371ecd797d
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           docker-images-file: ${{ github.workspace }}/docker-images.json
