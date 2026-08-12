@@ -1,0 +1,42 @@
+{
+  "aspectOfWork": "care-and-supervision",
+  "proceedingType": "FINAL_HEARING",
+  "hearingDate": "2026-03-03",
+  "hearingType": "FINAL_HEARING",
+  "numberOfInterimProceedings": "",
+  "interimHearings": [],
+  "durationBand": "",
+  "days": "2",
+  "judgeLevel": "HIGH_COURT_JUDGE",
+  "courtDirected": "NO",
+  "calculatedFee": 1336.5,
+  "interimHearingFees": [],
+  "totalInterimFee": null,
+  "isBoltonApplicable": "yes",
+  "boltonCategory": "",
+  "boltonItems": [
+    {
+      "id": 1774788199011,
+      "boltonType": "expert-cross-examination-25",
+      "amount": 334.13,
+      "autoCalculated": true
+    },
+    {
+      "id": 1774788205771,
+      "boltonType": "exceptional-travel-fee",
+      "amount": 32.04,
+      "autoCalculated": true
+    }
+  ],
+  "totalBoltonFee": 366.17,
+  "attendedAdvocatesMeetings": "",
+  "advocatesMeetings": [],
+  "certificationDate": "",
+  "pflrsProceedingsType": "",
+  "providerLocation": "",
+  "feeType": "",
+  "billType": "",
+  "courtType": "",
+  "levelOfWorkDone": ""
+}
+

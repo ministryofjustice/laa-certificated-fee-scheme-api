@@ -72,6 +72,26 @@ paths:
         '500':
           description: Internal server error
 
+  /api/v1/advocacy-fee-request:
+    post:
+      tags:
+        - advocacyFee
+      summary: Create advocacy fee request record
+      operationId: createAdvocacyFeeRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdvocacyFeeRequestDTO"
+      responses:
+        '200':
+          description: Created
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
   /api/v1/fee-calculation:
     post:
       tags:
@@ -418,3 +438,81 @@ components:
           type: string
           description: Description/explanation of the error
           example: "Category code not found for fee code: X123"
+
+    AdvocacyFeeRequestDTO:
+      type: object
+      properties:
+        aspectOfWork:
+          type: string
+        proceedingType:
+          type: string
+        hearingDate:
+          type: string
+          format: date
+        hearingType:
+          type: string
+        numberOfInterimProceedings:
+          type: string
+        interimHearings:
+          type: array
+          items:
+            type: object
+        durationBand:
+          type: string
+        days:
+          type: string
+        judgeLevel:
+          type: string
+        courtDirected:
+          type: string
+        calculatedFee:
+          type: number
+        interimHearingFees:
+          type: array
+          items:
+            type: object
+        totalInterimFee:
+          type: number
+        isBoltonApplicable:
+          type: string
+        boltonCategory:
+          type: string
+        boltonItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/BoltonItemDTO"
+        totalBoltonFee:
+          type: number
+        attendedAdvocatesMeetings:
+          type: string
+        advocatesMeetings:
+          type: array
+          items:
+            type: object
+        certificationDate:
+          type: string
+          format: date
+        pflrsProceedingsType:
+          type: string
+        providerLocation:
+          type: string
+        feeType:
+          type: string
+        billType:
+          type: string
+        courtType:
+          type: string
+        levelOfWorkDone:
+          type: string
+    BoltonItemDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        boltonType:
+          type: string
+        amount:
+          type: number
+        autoCalculated:
+          type: boolean
+
